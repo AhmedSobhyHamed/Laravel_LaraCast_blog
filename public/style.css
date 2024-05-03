@@ -1,0 +1,18 @@
+body{background-color: rgb(46, 45, 45); color: rgb(164, 228, 228);}
+main {
+    width: 500px;
+    margin: auto;
+}
+h3 {
+    margin: 0;
+}
+
+article + article {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 2px solid rgb(164, 228, 228);
+}
+
+a , a:visited {
+    color: rgb(0, 165, 165);
+}
