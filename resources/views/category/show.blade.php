@@ -1,18 +1,26 @@
 <x-layout title='blog'>
     <main>
-        <article>
-            <h2>{{$category->name}}</h2>
-            @forelse ($posts as $post)
-                <article>
-                    <h3><a href="/posts/{{$post->slug}}">{{$post->title}}</a></h3>
-                    <p>by 
-                        <a href="/authers/{{$post->auther->username}}">{{$post->auther->name}} </a>
-                    </p>
-                    <p>{{$post->excert}}</p>
-                </article>
-            @empty
-                <p>no files found</p>
-            @endforelse
-        </article>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <h2>{{$category->name}}</h2>
+                </div>
+                <div class="row pt-4">
+                    @forelse ($posts as $post)
+                        <x-post-article 
+                            titleName="{{$post->title}}"
+                            titleURI="/posts/{{$post->slug}}"
+                            postDate="{{$post->published_at}}"
+                            body="{{$post->excert}}"
+                            autherName="{{$post->auther->name}}"
+                            autherURI="/authers/{{$post->auther->username}}"
+                            loopIteration="{{$loop->iteration}}"
+                        />
+                    @empty
+                        <p>no files found</p>
+                    @endforelse
+                </div>
+            </div>
+        </section>
     </main>
 </x-layout>
