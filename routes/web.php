@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\FilesPost;
 use App\Models\Post;
@@ -14,54 +15,34 @@ Route::get('fileposts/{post}', function ($post) {
     return view('posts.show', ['post' => FilesPost::findOrFail($post), 'pre' => 'file']);
 });
 
+function caching($path, $ttl, $fn)
+{
+    Cache::forget(request()->method() . request()->path() . $path);
+    return Cache::remember(
+        request()->method() . request()->path() . $path,
+        now()->minutes($ttl),
+        $fn
+    );
+}
 
-Route::get('posts', function () {
-    return view('posts.index', [
-        'posts' => Cache::remember(
-            'get' . request()->path() . '-all',
-            now()->minutes(60),
-            fn () => Post::latest()->get()
-        )
-    ]);
-});
-Route::get('posts/{post}', function (Post $post) {
-    return view('posts.show', [
-        'post' => Cache::remember(
-            'get' . request()->path() . '-p',
-            now()->minutes(60),
-            fn () => $post
-        )
-    ]);
-});
+Route::get('posts', [PostController::class, 'index']);
+Route::get('posts/{post}', [PostController::class, 'show']);
 
 
 Route::get('category/{cat}', function (Category $cat) {
     return view('category.show', [
-        'category' => Cache::remember(
-            'get' . request()->path() . '-c',
-            now()->minutes(60),
-            fn () => $cat->load(['post'])
-        ),
-        'posts' => Cache::remember(
-            'get' . request()->path() . '-p',
-            now()->minutes(60),
-            fn () => $cat->post
-        )
+        'category' => caching('-c', 60, fn () => $cat->load(['post'])),
+        'posts' => caching('-p', 60, fn () => $cat->post),
+        'categories' => caching('-C', 60, fn () => Category::all()),
+        'currentCategory' => $cat->name
     ]);
 });
 
 
 Route::get('authers/{auther:username}', function (User $auther) {
     return view('authers.show', [
-        'auther' => Cache::remember(
-            'get' . request()->path() . '-a',
-            now()->minutes(60),
-            fn () => $auther->load(['post'])
-        ),
-        'posts' => Cache::remember(
-            'get' . request()->path() . '-p',
-            now()->minutes(60),
-            fn () => $auther->post
-        )
+        'auther' => caching('-a', 60, fn () => $auther->load(['post'])),
+        'posts' => caching('-p', 60, fn () => $auther->post),
+        'categories' => caching('-C', 60, fn () => Category::all())
     ]);
 });

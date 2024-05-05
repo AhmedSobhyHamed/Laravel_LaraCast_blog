@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
-    <x-navbar/>
     {{$slot}}
     <x-page-footer/>
 

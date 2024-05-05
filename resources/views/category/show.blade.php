@@ -1,4 +1,5 @@
 <x-layout title='blog'>
+    @include('parts.navbar')
     <main>
         <section>
             <div class="container">
@@ -14,7 +15,7 @@
                             body="{{$post->excert}}"
                             autherName="{{$post->auther->name}}"
                             autherURI="/authers/{{$post->auther->username}}"
-                            loopIteration="{{$loop->iteration}}"
+                            :loopIteration="$loop->iteration"
                         />
                     @empty
                         <p>no files found</p>

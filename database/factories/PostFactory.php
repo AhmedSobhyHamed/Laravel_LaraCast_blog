@@ -27,6 +27,7 @@ class PostFactory extends Factory
             'content' => $content,
             'user_id' => array_rand(User::all()->pluck('id', 'id')->toArray()),
             'Category_id' => array_rand(Category::all()->pluck('id', 'id')->toArray()),
+            'published_at' => now(),
         ];
     }
 }

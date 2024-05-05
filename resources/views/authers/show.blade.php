@@ -1,4 +1,5 @@
 <x-layout title='blog'>
+    @include('parts.navbar')
     <main>
         <section>
             <div class="row">

@@ -17,6 +17,17 @@ class Post extends Model
         return 'slug';
     }
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when(
+            $filters['KeySentince'] ?? false,
+            fn ($query, $KeySentince) =>
+            $query
+                ->where('title', 'like', '%' . $KeySentince . '%')
+                ->orWhere('content', 'like', '%' . $KeySentince . '%')
+        );
+    }
+
     public function Category()
     {
         return $this->belongsTo(Category::class);

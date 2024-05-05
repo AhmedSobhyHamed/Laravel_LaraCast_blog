@@ -24,18 +24,31 @@
 <!--------------drop down category menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categories
+                        {{$currentCategory??'Categories'}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">cat 1</a></li>
-                        <li><a class="dropdown-item" href="#">cat 2</a></li>
-                        <li><a class="dropdown-item" href="#">cat 3</a></li>
+                        <li><a 
+                            class="dropdown-item 
+                                {{request()->path()==='posts'?'bg-success text-dark':''}}"
+                            href="/posts">
+                            All
+                        </a></li>
+                        @foreach ($categories as $category)
+                            <li><a 
+                                class="dropdown-item 
+                                    {{isset($currentCategory) && 
+                                    $category->name==$currentCategory?'bg-success text-dark':''}}"
+                                href="/category/{{$category->slug}}">
+                                {{ucwords($category->name)}}
+                            </a></li>
+                        @endforeach
                     </ul>
                 </li>
             </ul>
 <!----------serrch for post -->
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" role="search" method="GET" action="">
+                <input class="form-control me-2" type="search" placeholder="Search"
+                name="PostSearch" value="{{request('PostSearch')}}" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 <!----------drop down user menu -->

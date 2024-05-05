@@ -7,6 +7,9 @@
     'loopIteration'=>1,
     'body'=>''
     ])
+    @php
+        use Illuminate\Support\Carbon;
+    @endphp
 {{-- card section --}}
         <div class="col-sm-12 {{$loopIteration%4==1?'col-md-12':'col-md-6 col-lg-4'}} mb-4">
             <div class="{{$loopIteration%4==1?'flex-row':''}} card text-dark">
@@ -21,7 +24,7 @@
                         <p>{{$body}}</p>
                         @if ($postDate)
                             <small>
-                                <i class="far fa-clock"></i>{{$postDate}}
+                                <i class="far fa-clock"></i>{{Carbon::parse($postDate)->diffForHumans()}}
                             </small>
                         @endif
                     </div>
