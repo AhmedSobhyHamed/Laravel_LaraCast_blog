@@ -12,11 +12,13 @@ class Post extends Model
 
     protected $with = ['category', 'auther'];
 
+    // default rout key
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
+    // filters
     public function scopeFilter($query, array $filters)
     {
         $query->when(
@@ -52,6 +54,7 @@ class Post extends Model
         // );
     }
 
+    // relationships
     public function category()
     {
         return $this->belongsTo(Category::class);

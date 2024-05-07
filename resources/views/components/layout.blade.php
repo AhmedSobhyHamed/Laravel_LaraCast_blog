@@ -11,7 +11,13 @@
     {{$slot}}
     <x-page-footer/>
 
+    @if (session()->has('popup message'))
+        <div class="alert alert-success flash-message-box" role="alert">
+            {{session('popup message')}}
+        </div>      
+    @endif
     <script src="/js/script.js"></script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
 </body>

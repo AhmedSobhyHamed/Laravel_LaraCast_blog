@@ -25,3 +25,13 @@ a , a:visited {
     --bs-pagination-active-bg: #198754;
     --bs-pagination-active-border-color: #197687;
 }
+ul {
+    list-style: none;
+}
+
+.flash-message-box {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    
+}
