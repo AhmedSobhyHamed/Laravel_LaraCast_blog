@@ -13,40 +13,25 @@
 <!----------main menu list -->
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link active" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Last Posts</a>
+                    <a class="nav-link" href="/posts">Last Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Top Contributers</a>
+                    <a class="nav-link" href="/authers">Top Contributers</a>
                 </li>
 <!--------------drop down category menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{$currentCategory??'Categories'}}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a 
-                            class="dropdown-item 
-                                {{request()->path()==='posts'?'bg-success text-dark':''}}"
-                            href="/posts">
-                            All
-                        </a></li>
-                        @foreach ($categories as $category)
-                            <li><a 
-                                class="dropdown-item 
-                                    {{isset($currentCategory) && 
-                                    $category->name==$currentCategory?'bg-success text-dark':''}}"
-                                href="/category/{{$category->slug}}">
-                                {{ucwords($category->name)}}
-                            </a></li>
-                        @endforeach
-                    </ul>
-                </li>
+                <x-dropdown-list />
             </ul>
 <!----------serrch for post -->
-            <form class="d-flex" role="search" method="GET" action="">
+            <form class="d-flex" role="search" method="GET" action="/posts">
+                @if (request()->PostCategory)
+                    <input type="hidden" name="PostCategory" value="{{request()->PostCategory}}">
+                @endif
+                @if (request()->PostAuther)
+                    <input type="hidden" name="PostAuther" value="{{request()->PostAuther}}">
+                @endif
                 <input class="form-control me-2" type="search" placeholder="Search"
                 name="PostSearch" value="{{request('PostSearch')}}" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>

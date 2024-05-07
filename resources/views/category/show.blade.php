@@ -9,12 +9,12 @@
                 <div class="row pt-4">
                     @forelse ($posts as $post)
                         <x-post-article 
-                            titleName="{{$post->title}}"
+                            :titleName="$post->title"
                             titleURI="/posts/{{$post->slug}}"
-                            postDate="{{$post->published_at}}"
-                            body="{{$post->excert}}"
-                            autherName="{{$post->auther->name}}"
-                            autherURI="/authers/{{$post->auther->username}}"
+                            :postDate="$post->published_at"
+                            :body="$post->excert"
+                            :autherName="$post->auther->name"
+                            :autherURI="$post->auther->username"
                             :loopIteration="$loop->iteration"
                         />
                     @empty

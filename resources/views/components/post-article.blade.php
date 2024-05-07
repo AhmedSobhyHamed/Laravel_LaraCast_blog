@@ -1,8 +1,8 @@
 @props([
     'titleName'=>'', 'titleURI'=>'#',
     'postDate',
-    'autherName'=>'', 'autherURI'=>'#',
-    'categoryName'=>'','categoryURI'=>'#',
+    'autherName'=>'', 'autherURI'=>null,
+    'categoryName'=>'','categoryURI'=>null,
     'postImage'=>'',
     'loopIteration'=>1,
     'body'=>''
@@ -32,12 +32,16 @@
                         <div class="media">
                             {{-- <img class="ms-3 rounded-circle" src="" alt="" style="max-width:50px"> --}}
                             <div class="media-body d-flex flex-column align-items-start">
-                                <a href="{{$autherURI}}">
-                                    <h6 class="my-0 text-dark">{{$autherName}}</h6>
-                                </a>
-                                <a href="{{$categoryURI}}">
-                                    <small>{{$categoryName}}</small>
-                                </a>
+                                @if ($autherURI)
+                                    <a href="/posts?PostAuther={{$autherURI}}">
+                                        <h6 class="my-0 text-dark">{{$autherName}}</h6>
+                                    </a>
+                                @endif
+                                @if ($categoryURI)
+                                    <a href="/posts?PostCategory={{$categoryURI}}">
+                                        <small>{{$categoryName}}</small>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>

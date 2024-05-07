@@ -9,13 +9,13 @@
                 <div class="row pt-4">
                     @forelse ($posts as $post)
                         <x-post-article 
-                            titleName="{{$post->title}}"
+                            :titleName="$post->title"
                             titleURI="/posts/{{$post->slug}}"
-                            postDate="{{$post->published_at}}"
-                            body="{{$post->excert}}"
-                            categoryName="{{$post->Category->name}}"
-                            categoryURI="/category/{{$post->category->slug}}"
-                            loopIteration="{{$loop->iteration}}"
+                            :postDate="$post->published_at"
+                            :body="$post->excert"
+                            :categoryName="$post->Category->name"
+                            :categoryURI="$post->category->slug"
+                            :loopIteration="$loop->iteration"
                         />
                     @empty
                         <p>no files found</p>

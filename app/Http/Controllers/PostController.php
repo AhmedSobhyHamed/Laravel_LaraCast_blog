@@ -11,8 +11,11 @@ class PostController extends Controller
     public function index(Request $request)
     {
         return view('posts.index', [
-            'posts' => $this->getPosts($request->PostSearch),
-            'categories' => caching('-C', 60, fn () => Category::all())
+            'posts' => $this->SearchForPosts(
+                $request->PostSearch,
+                $request->PostCategory,
+                $request->PostAuther
+            )
         ]);
     }
 
@@ -20,17 +23,23 @@ class PostController extends Controller
     {
         return view('posts.show', [
             'post' => caching('-p', 60, fn () => $post),
-            'categories' => caching('-C', 60, fn () => Category::all())
         ]);
     }
 
-    protected function getPosts(?String $KeySentince)
-    {
+    protected function SearchForPosts(
+        ?String $KeySentince,
+        ?String $CategorySentince,
+        ?string $AuthSentince
+    ) {
         return
-            $KeySentince
+            $KeySentince || $CategorySentince || $AuthSentince
             ?
-            Post::latest()->filter(['KeySentince' => $KeySentince])->get()
+            Post::latest()->filter([
+                'KeySentince' => $KeySentince,
+                'CategorySentince' => $CategorySentince,
+                'AuthSentince' => $AuthSentince
+            ])->paginate(8)->withQueryString()
             :
-            caching('-all', 60, fn () => Post::latest()->get());
+            caching('-all', 60, fn () => Post::latest()->paginate(8)->withQueryString());
     }
 }

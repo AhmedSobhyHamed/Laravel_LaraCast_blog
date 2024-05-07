@@ -20,3 +20,8 @@ article + article {
 a , a:visited {
     color: rgb(0, 165, 165);
 }
+
+*.active{
+    --bs-pagination-active-bg: #198754;
+    --bs-pagination-active-border-color: #197687;
+}

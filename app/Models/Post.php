@@ -22,13 +22,37 @@ class Post extends Model
         $query->when(
             $filters['KeySentince'] ?? false,
             fn ($query, $KeySentince) =>
-            $query
-                ->where('title', 'like', '%' . $KeySentince . '%')
-                ->orWhere('content', 'like', '%' . $KeySentince . '%')
+            $query->where(
+                fn ($query) =>
+                $query
+                    ->where('title', 'like', '%' . $KeySentince . '%')
+                    ->orWhere('content', 'like', '%' . $KeySentince . '%')
+            )
+        )->when(
+            $filters['CategorySentince'] ?? false,
+            fn ($query, $CategorySentince) =>
+            $query->whereHas('category', fn ($query) =>
+            $query->where('slug', $CategorySentince))
+        )->when(
+            $filters['AuthSentince'] ?? false,
+            fn ($query, $AuthSentince) =>
+            $query->whereHas('auther', fn ($query) =>
+            $query->where('username', $AuthSentince))
         );
+        // $query->when(
+        //     $filters['CategorySentince'] ?? false,
+        //     fn ($query, $CategorySentince) =>
+        //     $query
+        //         ->whereExists(
+        //             fn ($query) =>
+        //             $query->from('categories')
+        //                 ->whereColumn('categories.id', 'posts.category_id')
+        //                 ->where('categories.slug', $CategorySentince)
+        //         )
+        // );
     }
 
-    public function Category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
