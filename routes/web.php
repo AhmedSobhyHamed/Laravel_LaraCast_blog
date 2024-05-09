@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -55,3 +56,7 @@ Route::post('login',    [SessionController::class, 'store'])
     ->name('session-store')->middleware('guest');
 Route::delete('logout', [SessionController::class, 'destroy'])
     ->name('session-destroy')->middleware('auth');
+
+
+Route::post('post/{post}/comment', [CommentsController::class, 'store'])
+    ->name('comment-create')->middleware('auth');

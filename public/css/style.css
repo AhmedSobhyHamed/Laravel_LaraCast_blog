@@ -35,3 +35,7 @@ ul {
     right: 16px;
     
 }
+
+.safe-height {
+    min-height: 95vh;
+}

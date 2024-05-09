@@ -7,7 +7,7 @@
     <main>
         <section>
             <div class="container">
-                <div class="row pt-4">
+                <div class="row pt-4 mb-3">
                     <x-post-article 
                         :titleName="$post->title"
                         :postDate="$post->published_at"
@@ -17,7 +17,10 @@
                         :categoryName="$post->Category->name"
                         :categoryURI="$post->category->slug"
                     />
-                <a href="/{{$pre}}posts">go back</a>
+                    <a href="/{{$pre}}posts">go back</a>
+                </div>
+                <div class="row">
+                    @include('parts.comments')
                 </div>
             </div>
         </section>

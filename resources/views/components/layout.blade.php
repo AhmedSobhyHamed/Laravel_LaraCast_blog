@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    {{$slot}}
+    <main class="safe-height">
+        {{$slot}}
+    </main>
     <x-page-footer/>
 
     @if (session()->has('popup message'))

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\User;
 
 class Post extends Model
 {
@@ -62,5 +64,9 @@ class Post extends Model
     public function auther()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
