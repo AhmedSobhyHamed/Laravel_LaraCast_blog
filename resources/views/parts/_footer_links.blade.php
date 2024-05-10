@@ -20,7 +20,7 @@
 
             <ul class="list-unstyled mb-0">
                 <li>
-                    <a href="#!" class="text-white">Link 1</a>
+                    <a href="{{route('mailchimp-page')}}" class="text-white">Mailchimp</a>
                 </li>
                 <li>
                     <a href="#!" class="text-white">Link 2</a>

@@ -7,12 +7,13 @@
         {{$fieldName}}
     </label>
     <input 
-        class="form-control"
+        {{$attributes->merge(['class'=>'form-control'])}}
         type="{{$fieldType}}" 
         id="{{$fieldName}}" 
         name="{{$fieldName}}" 
         value="{{old($fieldName)}}"
         required
+        {{$attributes->merge(['placeholder'=>''])}}
     >
     @error($fieldName)
         <span class="text-danger">{{$message}}</span>

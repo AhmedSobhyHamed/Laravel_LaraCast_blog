@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\MailchimpController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -9,6 +10,8 @@ use App\Models\FilesPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
+use App\Services\Mailchimp;
 
 Route::get('fileposts', function () {
     return view('posts.index', ['posts' => FilesPost::allAndCache(), 'pre' => 'file']);
@@ -60,3 +63,7 @@ Route::delete('logout', [SessionController::class, 'destroy'])
 
 Route::post('post/{post}/comment', [CommentsController::class, 'store'])
     ->name('comment-create')->middleware('auth');
+
+
+Route::view('mailchimp', 'mailchimp.api')->name('mailchimp-page')->middleware('auth');
+Route::post('mailchimp/store', MailchimpController::class)->name('mailchimp-create');
