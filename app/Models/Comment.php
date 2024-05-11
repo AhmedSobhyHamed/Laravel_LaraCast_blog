@@ -10,6 +10,9 @@ use App\Models\User;
 class Comment extends Model
 {
     use HasFactory;
+
+    protected $with = ['user', 'post'];
+
     protected $fillable = ['content', 'user_id', 'post_id'];
 
     // mutator

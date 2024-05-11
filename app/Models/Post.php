@@ -12,6 +12,11 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title', 'slug', 'excert', 'content', 'user_id', 'category_id',
+        'image', 'published_at'
+    ];
+
     protected $with = ['category', 'auther'];
 
     // default rout key
@@ -68,5 +73,18 @@ class Post extends Model
     public function comment()
     {
         return $this->hasMany(Comment::class);
+    }
+    // mutator
+    public function setSlugAttribute($title)
+    {
+        $this->attributes['slug'] =
+            str_replace(' ', '-', $title) .
+            time() .
+            random_int(0, 65650);
+    }
+    // accessor
+    public function getImageAttribute()
+    {
+        return $this->attributes['image'] ? 'storage/' . $this->attributes['image'] : null;
     }
 }

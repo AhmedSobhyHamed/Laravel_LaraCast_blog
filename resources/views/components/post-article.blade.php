@@ -3,7 +3,7 @@
     'postDate',
     'autherName'=>'', 'autherURI'=>null,
     'categoryName'=>'','categoryURI'=>null,
-    'postImage'=>'',
+    'postImage'=>null,
     'loopIteration'=>1,
     'body'=>''
     ])
@@ -13,7 +13,9 @@
 {{-- card section --}}
         <div class="col-sm-12 {{$loopIteration%4==1?'col-md-12':'col-md-6 col-lg-4'}} mb-4">
             <div class="{{$loopIteration%4==1?'flex-row':''}} card text-dark">
-                <img class="card-img {{$loopIteration%4==1?'w-auto':''}}" src="{{$postImage}}" alt="">
+                @if ($postImage)
+                    <img class="card-img {{$loopIteration%4==1?'w-auto':''}}" src="{{asset($postImage)}}" alt="">
+                @endif
                 <div class="d-flex flex-column flex-fill">
                     <div class="card-body">
                         <a class="text-dark" href="{{$titleURI}}">
@@ -31,16 +33,16 @@
                     <div class="card-footer">
                         <div class="media">
                             {{-- <img class="ms-3 rounded-circle" src="" alt="" style="max-width:50px"> --}}
-                            <div class="media-body d-flex flex-column align-items-start">
+                            <div class="media-body d-flex flex-row gap-2 align-items-start">
                                 @if ($autherURI)
-                                    <a href="/posts?PostAuther={{$autherURI}}">
-                                        <h6 class="my-0 text-dark">{{$autherName}}</h6>
-                                    </a>
+                                    <x-anchor-link class="badge bg-body-secondary mb-3" href="/posts?PostAuther={{$autherURI}}">
+                                        <h6 class="my-0 text-dark fw-bold">{{$autherName}}</h6>
+                                    </x-anchor-link>
                                 @endif
                                 @if ($categoryURI)
-                                    <a href="/posts?PostCategory={{$categoryURI}}">
-                                        <small>{{$categoryName}}</small>
-                                    </a>
+                                    <x-anchor-link class="badge fs-6 bg-success rounded-pill mb-3" href="/posts?PostCategory={{$categoryURI}}">
+                                        <small class="my0- text-dark">{{$categoryName}}</small>
+                                    </x-anchor-link>
                                 @endif
                             </div>
                         </div>

@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function show(Category $cat)
     {
         return view('category.show', [
-            'category' => caching('-c', 60, fn () => $cat->load(['post'])),
+            'category' => caching('-c', 60, fn () => $cat),
             'posts' => caching('-p', 60, fn () => $cat->post),
         ]);
     }

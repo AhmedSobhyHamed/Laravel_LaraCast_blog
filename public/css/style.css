@@ -39,3 +39,7 @@ ul {
 .safe-height {
     min-height: 95vh;
 }
+
+.h-29 {
+    height: 290px;
+}

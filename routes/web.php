@@ -32,6 +32,8 @@ function caching($path, $ttl, $fn)
 
 Route::middleware('auth')->group(function () {
     Route::get('posts', [PostController::class, 'index'])->name('posts-index');
+    Route::get('posts/create', [PostController::class, 'create'])->name('posts-create');
+    Route::post('posts/store', [PostController::class, 'store'])->name('posts-store');
     Route::get('posts/{post}', [PostController::class, 'show'])->name('posts-show');
 
 
@@ -47,10 +49,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('register/create', [RegisterController::class, 'create'])
-        ->name('register-create');
-    Route::post('register/store', [RegisterController::class, 'store'])
-        ->name('register-store');
+    Route::get('register/create', [RegisterController::class, 'create'])->name('register-create');
+    Route::post('register/store', [RegisterController::class, 'store'])->name('register-store');
 });
 
 Route::get('login',     [SessionController::class, 'create'])
@@ -60,10 +60,10 @@ Route::post('login',    [SessionController::class, 'store'])
 Route::delete('logout', [SessionController::class, 'destroy'])
     ->name('session-destroy')->middleware('auth');
 
+Route::middleware('auth')->group(function () {
+    Route::post('post/{post}/comment', [CommentsController::class, 'store'])->name('comment-create');
 
-Route::post('post/{post}/comment', [CommentsController::class, 'store'])
-    ->name('comment-create')->middleware('auth');
 
-
-Route::view('mailchimp', 'mailchimp.api')->name('mailchimp-page')->middleware('auth');
-Route::post('mailchimp/store', MailchimpController::class)->name('mailchimp-create');
+    Route::view('mailchimp', 'mailchimp.api')->name('mailchimp-page');
+    Route::post('mailchimp/store', MailchimpController::class)->name('mailchimp-create');
+});

@@ -1,21 +1,25 @@
-@props(['fieldName','fieldType'=>'text'])
+@props(['fieldName','fieldType'=>'text','isLabel'=>true,'isError'=>true,'isRequired'=>true])
 <div class="mb-3">
-    <label 
-        for="{{$fieldName}}"
-        class="form-label"
-    >
-        {{$fieldName}}
-    </label>
+    @if ($isLabel)
+        <label 
+            for="{{$fieldName}}"
+            class="form-label"
+        >
+            {{$fieldName}}
+        </label>
+    @endif
     <input 
         {{$attributes->merge(['class'=>'form-control'])}}
         type="{{$fieldType}}" 
         id="{{$fieldName}}" 
         name="{{$fieldName}}" 
         value="{{old($fieldName)}}"
-        required
+        {{$isRequired?'required':''}}
         {{$attributes->merge(['placeholder'=>''])}}
     >
-    @error($fieldName)
-        <span class="text-danger">{{$message}}</span>
-    @enderror
+    @if ($isError)
+        @error($fieldName)
+            <span class="text-danger">{{$message}}</span>
+        @enderror
+    @endif
 </div>
