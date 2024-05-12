@@ -5,6 +5,11 @@ let theScript = (_=>{
         e.preventDefault();
         $('#logoutform').trigger('submit');
     });
+    let deleteforms = $('[url="deletePostForm"]');
+    $('[href="deletePostAnchor"]').each((i,e)=>{$(e).on('click',e=>{
+        e.preventDefault();
+        $(deleteforms[i]).trigger('submit');
+    })});
     // $('#commentFormID').on('submit',e=>{
     //     e.preventDefault();
     //     let resault ={};

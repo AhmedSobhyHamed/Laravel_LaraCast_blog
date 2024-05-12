@@ -10,6 +10,7 @@
                 <div class="row pt-4 mb-3">
                     <x-post-article 
                         :titleName="$post->title"
+                        :titleURI="$post->slug"
                         :postDate="$post->published_at"
                         :body="$post->content"
                         :autherName="$post->auther->name"
@@ -20,7 +21,9 @@
                     />
                 </div>
                 <div class="rowot-4 mb-3">
-                    <a class="btn btn-outline-info py-2 px-4 rounded-pill" href="/{{$pre}}posts">go back</a>
+                    <a class="btn btn-outline-info py-2 px-4 rounded-pill" href="{{url()->previous()}}">
+                        go back
+                    </a>
                 </div>
                 <div class="row">
                     @include('parts.comments')

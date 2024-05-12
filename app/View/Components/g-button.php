@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class g-button extends Component
+class GButton extends Component
 {
     /**
      * Create a new component instance.

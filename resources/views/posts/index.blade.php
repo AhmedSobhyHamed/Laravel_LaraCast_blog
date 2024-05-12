@@ -15,8 +15,8 @@
                 <div class="row pt-4">
                     @forelse ($posts as $post)
                         <x-post-article 
-                            titleName="{{$post->title}}"
-                            titleURI="/{{$pre}}posts/{{$post->slug}}"
+                            :titleName="$post->title"
+                            :titleURI="$post->slug"
                             :postDate="$post->published_at"
                             :body="$post->excert"
                             :autherName="$post->auther->name"
@@ -25,6 +25,7 @@
                             :categoryURI="$post->category->slug"
                             :postImage="$post->image"
                             :loopIteration="$loop->iteration"
+                            :clicable='true'
                         />
                     @empty
                         <p>no files found</p>

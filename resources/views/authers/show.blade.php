@@ -10,7 +10,7 @@
                     @forelse ($posts as $post)
                         <x-post-article 
                             :titleName="$post->title"
-                            titleURI="/posts/{{$post->slug}}"
+                            :titleURI="$post->slug"
                             :postDate="$post->published_at"
                             :body="$post->excert"
                             :categoryName="$post->Category->name"

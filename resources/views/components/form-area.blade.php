@@ -1,4 +1,4 @@
-@props(['areaName','isLabel'=>true,'isError'=>true])
+@props(['areaName','isLabel'=>true,'isError'=>true,'value'=>null])
 <div class="mb-3">
     @if ($isLabel)
         <label 
@@ -14,7 +14,7 @@
         name="{{$areaName}}" 
         required
         {{$attributes->merge(['placeholder'=>''])}}
-    >{{old($areaName)}}</textarea>
+    >{{$value??old($areaName)}}</textarea>
     @if ($isError)
         @error($areaName)
             <span class="text-danger">{{$message}}</span>

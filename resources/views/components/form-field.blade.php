@@ -1,4 +1,10 @@
-@props(['fieldName','fieldType'=>'text','isLabel'=>true,'isError'=>true,'isRequired'=>true])
+@props(['fieldName',
+        'fieldType'=>'text',
+        'isLabel'=>true,
+        'isError'=>true,
+        'isRequired'=>true,
+        'value'=>null]
+    )
 <div class="mb-3">
     @if ($isLabel)
         <label 
@@ -13,7 +19,7 @@
         type="{{$fieldType}}" 
         id="{{$fieldName}}" 
         name="{{$fieldName}}" 
-        value="{{old($fieldName)}}"
+        value="{{$value??old($fieldName)}}"
         {{$isRequired?'required':''}}
         {{$attributes->merge(['placeholder'=>''])}}
     >
