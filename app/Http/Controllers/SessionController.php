@@ -32,9 +32,22 @@ class SessionController extends Controller
         //     ->withErrors(['login fail' => 'email or password may not correct']);
     }
 
+    public function show(Request $request)
+    {
+        return view('session.show', ['user' => User::firstWhere('username', $request->user)->load('post')]);
+    }
+
     public function destroy()
     {
         auth()->logout();
         return redirect(RouteServiceProvider::HOME)->with('popup message', 'good bye');
+    }
+
+
+    public function showPosts(User $auther)
+    {
+        return view('authers.show', [
+            'auther' => caching('-a', 60, fn () => $auther->load(['post'])),
+        ]);
     }
 }

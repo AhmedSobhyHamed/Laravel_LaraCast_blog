@@ -8,7 +8,7 @@ let theScript = (_=>{
     let deleteforms = $('[url="deletePostForm"]');
     $('[href="deletePostAnchor"]').each((i,e)=>{$(e).on('click',e=>{
         e.preventDefault();
-        $(deleteforms[i]).trigger('submit');
+        $(deleteforms[i-1]).trigger('submit');
     })});
     // $('#commentFormID').on('submit',e=>{
     //     e.preventDefault();

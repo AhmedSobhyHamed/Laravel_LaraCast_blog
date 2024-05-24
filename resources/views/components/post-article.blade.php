@@ -20,7 +20,7 @@
                 <div class="d-flex flex-column flex-fill">
                     <div class="card-body p-0">
                         @if ($clicable)
-                            <x-anchor-link noHoverEffect={{true}} class="text-dark" href="posts/{{$titleURI}}">
+                            <x-anchor-link noHoverEffect={{true}} class="text-dark" href="{{route('posts-show',$titleURI)}}">
                                 <h4 class="card-title mt-0 p-3 bg-body-secondary">
                                     {{$titleName}}
                                 </h4>
@@ -59,8 +59,8 @@
                                         </x-anchor-link>
                                     @endif
                                 </div>
-                                @if (request()->user()->username === $autherURI)
-                                    <form action="{{route('posts-delete')}}?post={{$titleURI}}" method="post" url="deletePostForm">
+                                @can('ISAdmin',$autherURI)
+                                    <form action="{{route('posts-delete')}}?post={{$titleURI}}" method="post" url="deletePostForm" class="d-none">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -68,6 +68,9 @@
                                         <x-anchor-link href="{{route('posts-edit')}}?post={{$titleURI}}">Edit</x-anchor-link>
                                         <x-anchor-link href="deletePostAnchor">Delete</x-anchor-link>
                                     </div>
+                                @endcan
+                                @if (request()->user()->username === $autherURI)
+                                    
                                 @endif
                             </div>
                         </div>

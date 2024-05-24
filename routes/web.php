@@ -39,16 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('posts/delete', [PostController::class, 'destroy'])->name('posts-delete')->middleware(['is-post', 'owner-only']);
     Route::get('posts/{post}', [PostController::class, 'show'])->name('posts-show');
 
-
     Route::get('category/{cat}', [CategoryController::class, 'show'])->name('category-show');
-
-
-    Route::get('authers/{auther:username}', function (User $auther) {
-        return view('authers.show', [
-            'auther' => caching('-a', 60, fn () => $auther->load(['post'])),
-            'posts' => caching('-p', 60, fn () => $auther->post)
-        ]);
-    });
 });
 
 Route::middleware('guest')->group(function () {
@@ -56,12 +47,11 @@ Route::middleware('guest')->group(function () {
     Route::post('register/store', [RegisterController::class, 'store'])->name('register-store');
 });
 
-Route::get('login',     [SessionController::class, 'create'])
-    ->name('session-create')->middleware('guest');
-Route::post('login',    [SessionController::class, 'store'])
-    ->name('session-store')->middleware('guest');
-Route::delete('logout', [SessionController::class, 'destroy'])
-    ->name('session-destroy')->middleware('auth');
+Route::get('login',       [SessionController::class, 'create'])->name('session-create')->middleware('guest');
+Route::post('login',      [SessionController::class, 'store'])->name('session-store')->middleware('guest');
+Route::delete('logout',   [SessionController::class, 'destroy'])->name('session-destroy')->middleware('auth');
+Route::get('user/show', [SessionController::class, 'show'])->name('session-show')->middleware('auth');
+Route::get('authers/{auther:username}/posts', [SessionController::class, 'showPosts'])->name('session-autherposts')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::post('post/{post}/comment', [CommentsController::class, 'store'])->name('comment-create');

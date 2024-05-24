@@ -7,7 +7,7 @@
             </div>
             <div class="container">
                 <div class="row pt-4">
-                    @forelse ($posts as $post)
+                    @forelse ($auther->post as $post)
                         <x-post-article 
                             :titleName="$post->title"
                             :titleURI="$post->slug"

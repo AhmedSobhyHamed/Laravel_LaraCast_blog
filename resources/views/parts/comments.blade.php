@@ -19,6 +19,6 @@
     </form>
 
     @foreach ($post->comment as $comment)
-        <x-comment :name='$comment->user->name' :content='$comment->content' :time='$comment->created_at'/>
+        <x-comment :name='$comment->user->name' :content='$comment->content' :time='$comment->created_at' :autherUsername='$comment->user->username'/>
     @endforeach
 </div>

@@ -1,14 +1,17 @@
-<x-layout title='blog'>
+<x-layout title='create new post'>
     @include('parts.navbar')
-    <main>
+    <x-side-main-layout>
+        <x-slot name="links">
+            @include('parts.userlinks')
+        </x-slot>
         <section>
             <div class="container">
                 <div class="row pt-4 mb-3">
-                    <h1 class="text-center my-5">create a post.</h1>
+                    <h1 class="text-center mt-1 mb-4">create a post.</h1>
                     <form action="{{route('posts-store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
-                            <label for="category" class="form-label fs-4">select a category for your post</label>
+                            <label for="category" class="form-label fs-5 text-light">select a category for your post</label>
                             <select name="category" id="category" class="form-select">
                                 @foreach ($categories as $category)
                                 <option 
@@ -34,5 +37,5 @@
                 </div>
             </div>
         </section>
-    </main>
+    </x-side-main-layout>
 </x-layout>

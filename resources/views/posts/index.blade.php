@@ -1,17 +1,11 @@
-@php
-    $pre??='';
-@endphp
-
 <x-layout title='blog'>
     @include('parts.navbar')
-    <main>
+    <x-side-main-layout>
+        <x-slot name="links">
+            @include('parts.postlinks')
+        </x-slot>
         <section>
             <div class="container">
-                <div class="row pt-4">
-                    <div class="col-12 mb-4">
-                        <a href="{{route('posts-create')}}" class="btn p-4 btn-info w-100 text-dark fs-3 rounded-pill">create a new post</a>
-                    </div>
-                </div>
                 <div class="row pt-4">
                     @forelse ($posts as $post)
                         <x-post-article 
@@ -34,7 +28,5 @@
                 {{$posts->links()}}
             </div>
         </section>
-    </main>
+    </x-side-main-layout>
 </x-layout>
-
-

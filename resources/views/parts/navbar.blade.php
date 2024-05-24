@@ -49,8 +49,9 @@
                             {{auth()->user()->name}}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">My Posts</a></li>
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{{route('posts-index')}}?PostAuther={{auth()->user()->username}}">My Posts</a></li>
+                            <li><a class="dropdown-item" href="{{route('posts-create')}}">New Post</a></li>
+                            <li><a class="dropdown-item" href="{{route('session-show')}}?user={{auth()->user()->username}}">My Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" id="logoutlink" href="{{route('session-destroy')}}">Log Out</a></li>
                         </ul>

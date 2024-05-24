@@ -16,7 +16,8 @@ class PostController extends Controller
             'posts' => $this->SearchForPosts(
                 $request->PostSearch,
                 $request->PostCategory,
-                $request->PostAuther
+                $request->PostAuther,
+                $request->PostOrder === 'oldest' ?: null
             )
         ]);
     }
@@ -101,18 +102,21 @@ class PostController extends Controller
     protected function SearchForPosts(
         ?string $KeySentince,
         ?string $CategorySentince,
-        ?string $AuthSentince
+        ?string $AuthSentince,
+        ?string $PostOder
     ) {
+
+        $post = $PostOder ?  Post::oldest() : Post::latest();
         return
             $KeySentince || $CategorySentince || $AuthSentince
             ?
-            Post::latest()->filter([
+            $post->filter([
                 'KeySentince' => $KeySentince,
                 'CategorySentince' => $CategorySentince,
                 'AuthSentince' => $AuthSentince
             ])->paginate(8)->withQueryString()
             :
-            caching('-all', 60, fn () => Post::latest()->paginate(8)->withQueryString());
+            caching('-all', 60, fn () => $post->paginate(8)->withQueryString());
     }
     protected static function storeImage(Request $request, string $fileName)
     {
@@ -121,6 +125,7 @@ class PostController extends Controller
 
     protected static function deleteImage(?string $fileName)
     {
+        if (!$fileName) return true;
         if (!Storage::exists(str_replace('storage/', '', $fileName)))
             return false;
         return Storage::delete(str_replace('storage/', '', $fileName));
