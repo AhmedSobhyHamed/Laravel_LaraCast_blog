@@ -34,6 +34,7 @@ A search feature is also available for users to find specific posts.
 - Using MVC architecture.
 - Controllers and endpoints are created using resourceful conventions.
 - Using Laravel Authentication system.
+- Utilizing binding to the service container.
 - Validating users data.
 - Shows validating feedback messages.
 - Using ORM Laravel eloquent models.
@@ -43,7 +44,7 @@ A search feature is also available for users to find specific posts.
 - Utilizing mutators in models.
 - Utilizing accessors in models.
 - Utilizing relationship functions in models.
-- Changing the default route key to slug.
+- Utilizing route model binding.
 - Utilizing scopeFilter in models.
 - Implementing the Blade component approach.
 - Create middleware.
